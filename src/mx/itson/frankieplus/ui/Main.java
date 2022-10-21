@@ -5,11 +5,14 @@
  */
 package mx.itson.frankieplus.ui;
 
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import mx.itson.frankieplus.entidades.Ingrediente;
 import mx.itson.frankieplus.entidades.Paso;
@@ -169,8 +172,8 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -275,22 +278,27 @@ public class Main extends javax.swing.JFrame {
                 
                 DefaultTableModel modelUno = (DefaultTableModel) tblIngredientes.getModel();
                 modelUno.setRowCount(0);
+                tblIngredientes.setRowHeight(40);
                 
                 for(Ingrediente i: receta.getIngredientes()){
 
                     modelUno.addRow(new Object[] {
-                        i.getNombre()});
+                        "<html>"+i.getNombre()+"</html>"});
                     
                 }
                 
                 DefaultTableModel modelDos = (DefaultTableModel) tblPasos.getModel();
                 modelDos.setRowCount(0);
+                tblPasos.setRowHeight(215);
+                DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+                tcr.setHorizontalAlignment(SwingConstants.CENTER);
+                tblPasos.getColumnModel().getColumn(1).setCellRenderer(tcr);
                 
                 for(Paso p: receta.getPasos()){
                     
                     modelDos.addRow(new Object[] {
                         p.getOrden(),
-                        p.getDescripcion()});
+                        "<html>"+p.getDescripcion()+"</html>"});
                     
                 }
                 
